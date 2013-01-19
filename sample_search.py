@@ -1,4 +1,4 @@
-import argparse
+import optparse
 from pprint import pprint
 from urllib import quote
 import requests
@@ -23,10 +23,10 @@ def search(term):
         response.raise_for_status()
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description="Search twitter for the specified term.",
-        epilog='Try: python sample_search.py "@sandiegopython"')
-    parser.add_argument("term", help='Search Twitter for this term.', type=str)
-    args = parser.parse_args()
+    parser = optparse.OptionParser("Usage: %prog [-h] SEARCHTERM")
+    (options, args) = parser.parse_args()
 
-    search(args.term)
+    if len(args) > 0:
+        search(args[0])
+    else:
+        parser.error("You must specify a search term!")

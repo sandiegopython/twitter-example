@@ -14,7 +14,11 @@ def search(term):
 
         # Loop over the results from Twitter
         for tweet in rjson['results']:
-            print '%s - %s' %(tweet['from_user_name'], tweet['text'])
+            try:
+                print u'%s - %s' %(tweet['from_user_name'], tweet['text'])
+            except UnicodeEncodeError:
+                # Suppress Windows terminal unicode encode errors
+                pass
     else:
         response.raise_for_status()
 
